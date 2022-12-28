@@ -103,8 +103,9 @@ public class RepairmentImpl implements Repairment {
         FaultType[] values = faults.values();
         for(FaultType fault:values){
             for(Worker worker:workers){
-                FaultType faultType = worker.getTreatableFaults();
-                FaultType[] faultTypes = faultType.values();
+//                FaultType faultType = worker.getTreatableFaults();
+//                FaultType[] faultTypes = faultType.values();
+                List<FaultType> faultTypes = worker.getTreatableFaults();
                 for(FaultType fault1:faultTypes){
                     if (fault.equals(fault1)){
                         taskScheduling.setWorker(worker);
