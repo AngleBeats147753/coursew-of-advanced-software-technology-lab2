@@ -86,9 +86,6 @@ fabric.properties
 
 .idea/*
 
-!.idea/codeStyles
-!.idea/runConfigurations
-
 ### Maven ###
 target/
 pom.xml.tag
