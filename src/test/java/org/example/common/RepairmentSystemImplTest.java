@@ -23,12 +23,6 @@ class RepairmentSystemImplTest {
         return LocalDateTime.ofEpochSecond(start+difference,0, ZoneOffset.ofHours(8));
     }
 
-    @Test
-    void test1(){
-        LocalDateTime dateTime = createRandomDate();
-        System.out.println(dateTime);
-    }
-
     Dispatcher createADispatcher(int difference){
         Dispatcher dispatcher = new DispatcherImpl();
         dispatcher.setName("调度员"+difference);
