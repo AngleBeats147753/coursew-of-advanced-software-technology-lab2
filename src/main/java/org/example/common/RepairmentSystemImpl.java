@@ -43,15 +43,14 @@ public class RepairmentSystemImpl implements RepairmentSystem {
         repairment.setFaultContent(content);
         repairment.setRepairTime(LocalDate.now());
         repairmentList.add(repairment);
-
         return repairment;
     }
 
     @Override
     public void showRepairments() {
         for(Repairment repairment : repairmentList){
-            System.out.printf("报修人：%s\n", repairment.getApplicant()); //todo 姓名
-            System.out.printf("调度员：%s\n", repairment.getDispatcher()); //todo 姓名
+            System.out.printf("报修人：%s\n", repairment.getApplicant().getName());
+            System.out.printf("调度员：%s\n", repairment.getDispatcher().getName());
             System.out.printf("维修内容：%s\n", repairment.getFaultContent());
             System.out.printf("来源：%s\n", repairment.getSource());
             System.out.printf("报修时间：%s\n", repairment.getRepairTime());
@@ -59,25 +58,31 @@ public class RepairmentSystemImpl implements RepairmentSystem {
         }
     }
 
-    @Override
-    public List<FaultType> getTreatableFaults() {
-        return null;
-    }
 
     @Override
     public void getCurrentScheduling(Repairment repairment) {
-        System.out.printf("报修人：%s\n", repairment.getApplicant()); //todo 姓名
+        System.out.printf("报修人：%s\n", repairment.getApplicant().getName());
         System.out.printf("维修内容：%s\n", repairment.getFaultContent());
         if(repairment.getTaskSchedulingList() == null){
             System.out.println("未调度");
         } else {
-            for (TaskScheduling taskScheduling: repairment.getTaskSchedulingList()){
-                System.out.printf("维修人员：%s", taskScheduling.getWorker()); // todo 姓名
-                if (taskScheduling.getIfComplete())
-                    System.out.println("已完成");
+            int size = repairment.getTaskSchedulingList().size();
+            TaskScheduling scheduling = repairment.getTaskSchedulingList().get(size-1);
+            System.out.printf("维修人员：%s", scheduling.getWorker());
+            for (RepairmentRecord record: scheduling.getRepairmentRecord()){
+                System.out.print("开始时间：" + record.getStartTime() + "    ");
+                String endTime;
+                if (record.getFinishTime() != null)
+                    endTime = record.getFinishTime().toString();
                 else
-                    System.out.println("未完成");
+                    endTime = "未结束";
+                System.out.print("结束时间：" + endTime + "    ");
+                System.out.println("维修内容：" + record.getRepairContent());
             }
+            if (scheduling.getIfComplete())
+                System.out.println("已完成");
+            else
+                System.out.println("未完成");
         }
     }
 
