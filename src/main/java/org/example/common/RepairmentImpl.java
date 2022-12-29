@@ -1,27 +1,28 @@
 package org.example.common;
 
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepairmentImpl implements Repairment {
-    public LocalDate repairTime;
+    public LocalDateTime repairTime;
     public String faultContent;
     public Person applicant;
     public String source;
     public Dispatcher dispatcher;
-    public List<TaskScheduling> taskSchedulingList;
+    public List<TaskScheduling> taskSchedulingList = new ArrayList<>();
     public Comment comment;
     public List<Complaint> complaintList;
     private long workTime;
 
     @Override
-    public LocalDate getRepairTime() {
+    public LocalDateTime getRepairTime() {
         return this.repairTime;
     }
 
     @Override
-    public void setRepairTime(LocalDate repairTime) {
+    public void setRepairTime(LocalDateTime repairTime) {
         this.repairTime = repairTime;
     }
 

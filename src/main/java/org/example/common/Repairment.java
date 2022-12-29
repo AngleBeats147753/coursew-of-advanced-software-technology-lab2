@@ -1,6 +1,6 @@
 package org.example.common;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -8,8 +8,8 @@ import java.util.List;
  * @since 2022/12/16
  **/
 public interface Repairment {
-    LocalDate getRepairTime();
-    void setRepairTime(LocalDate repairTime);
+    LocalDateTime getRepairTime();
+    void setRepairTime(LocalDateTime repairTime);
     String getFaultContent();
     void setFaultContent(String faultContent);
     Person getApplicant();
