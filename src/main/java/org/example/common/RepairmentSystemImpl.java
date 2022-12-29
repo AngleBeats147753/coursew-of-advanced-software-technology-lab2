@@ -1,6 +1,6 @@
 package org.example.common;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class RepairmentSystemImpl implements RepairmentSystem {
         repairment.setDispatcher(dispatcher);
         repairment.setSource(source);
         repairment.setFaultContent(content);
-        repairment.setRepairTime(LocalDate.now());
+        repairment.setRepairTime(LocalDateTime.now());
         repairmentList.add(repairment);
         return repairment;
     }
