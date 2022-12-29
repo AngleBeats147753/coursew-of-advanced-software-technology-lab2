@@ -62,7 +62,7 @@ class RepairmentImplTest {
 
         String content = comment.getTimeliness();
         int feedback = comment.getAttitudeScore();
-        assert content == "响应及时" && feedback == 5 : "test failed";
+        assert content.equals("响应及时") && feedback == 5 : "test failed";
     }
 
     @Test
@@ -72,7 +72,7 @@ class RepairmentImplTest {
         Complaint complaint = repairment.complaint(message);
 
         String content = complaint.getComplaintContent();
-        assert content == "维修太慢了" : "test failed";
+        assert content.equals("维修太慢了") : "test failed";
     }
 
     @Test
