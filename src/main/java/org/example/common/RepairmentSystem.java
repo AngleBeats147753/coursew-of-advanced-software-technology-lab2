@@ -16,10 +16,11 @@ public interface RepairmentSystem {
     void setWorkerList(List<Worker> workerList);
 
     Repairment applyRepairment(Person applicant, Dispatcher dispatcher, String content, String source);
-    void showRepairments();
 
-    void getCurrentScheduling(Repairment repairment);
-    boolean workerAvailable(Worker worker);
-    void getWorkTime(Repairment repairment);
-    void getWorkerInfo(Worker worker);
+
+//    void showRepairments();
+//    void getCurrentScheduling(Repairment repairment);
+//    boolean workerAvailable(Worker worker);
+//    void getWorkTime(Repairment repairment);
+//    void getWorkerInfo(Worker worker);
 }
