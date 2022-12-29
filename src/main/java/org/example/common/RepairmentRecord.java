@@ -1,16 +1,16 @@
 package org.example.common;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * @author 黄磊
  * @since 2022/12/16
  **/
 public interface RepairmentRecord {
-    LocalDate getStartTime();
-    void setStartTime(LocalDate time);
-    LocalDate getFinishTime();
-    void setFinishTime(LocalDate time);
+    LocalDateTime getStartTime();
+    void setStartTime(LocalDateTime time);
+    LocalDateTime getFinishTime();
+    void setFinishTime(LocalDateTime time);
     long getWorkingHours();
 
     String getRepairContent();
