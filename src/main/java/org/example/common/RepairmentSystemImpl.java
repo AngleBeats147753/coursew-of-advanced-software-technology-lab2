@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class RepairmentSystemImpl implements RepairmentSystem {
     private List<Repairment> repairmentList;
     private List<Worker> workerList;
@@ -58,6 +59,19 @@ public class RepairmentSystemImpl implements RepairmentSystem {
         }
     }
 
+    @Override
+    public void getWorkerInfo(Worker worker){
+        System.out.printf("工人姓名： %s", worker.getName());
+        System.out.print("可处理的维修类型：");
+        for (FaultType faultType: worker.getTreatableFaults()){
+            System.out.print(faultType + ", ");
+        }
+        System.out.println();
+        if (worker.getIfWorking())
+            System.out.println("工作ing...");
+        else
+            System.out.println("目前未被分配工作");
+    }
 
     @Override
     public void getCurrentScheduling(Repairment repairment) {
@@ -86,21 +100,14 @@ public class RepairmentSystemImpl implements RepairmentSystem {
         }
     }
 
-    @Override
-    public void getWorkerInfo(Worker worker){
-        System.out.printf("工人姓名： %s", worker); // todo 姓名
-        System.out.println();
-    }
-
 
     @Override
     public boolean workerAvailable(Worker worker){
-        return Boolean.FALSE;   // todo 打印是否有空
+        return worker.getIfWorking();
     }
 
     @Override
     public void getWorkTime(Repairment repairment){
-        System.out.println("维修时间：");
-        System.out.println(repairment.getRepairTime());
+        System.out.println("维修时间：" + repairment.getRepairTime());
     }
 }
