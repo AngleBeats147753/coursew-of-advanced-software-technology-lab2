@@ -5,5 +5,5 @@ package org.example.common;
  * @Date: 2022/12/17 下午5:56
  */
 public enum FaultType {
-
+    A, B, C, D, E
 }
