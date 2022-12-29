@@ -10,7 +10,7 @@ public class RepairmentRecordImpl implements RepairmentRecord{
 
     @Override
     public LocalDateTime getStartTime() {
-        return startTime;
+        return this.startTime;
     }
 
     @Override
@@ -20,7 +20,7 @@ public class RepairmentRecordImpl implements RepairmentRecord{
 
     @Override
     public LocalDateTime getFinishTime() {
-        return finishTime;
+        return this.finishTime;
     }
 
     @Override
@@ -30,13 +30,13 @@ public class RepairmentRecordImpl implements RepairmentRecord{
 
     @Override
     public long getWorkingHours() {
-        Duration duration = Duration.between(startTime, finishTime);
+        Duration duration = Duration.between(this.startTime, this.finishTime);
         return duration.toHours();
     }
 
     @Override
     public String getRepairContent() {
-        return repairContent;
+        return this.repairContent;
     }
 
     @Override

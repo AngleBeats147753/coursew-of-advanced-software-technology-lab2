@@ -1,16 +1,17 @@
 package org.example.common;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskSchedulingImpl implements TaskScheduling{
     Worker worker;
-    List<RepairmentRecord> repairmentRecordList;
+    List<RepairmentRecord> repairmentRecordList = new ArrayList<>();
     boolean ifComplete = false;
 
     @Override
     public Worker getWorker() {
-        return worker;
+        return this.worker;
     }
 
     @Override
@@ -20,12 +21,12 @@ public class TaskSchedulingImpl implements TaskScheduling{
 
     @Override
     public List<RepairmentRecord> getRepairmentRecord() {
-        return repairmentRecordList;
+        return this.repairmentRecordList;
     }
 
     @Override
     public boolean getIfComplete() {
-        return ifComplete;
+        return this.ifComplete;
     }
 
     @Override
@@ -34,7 +35,7 @@ public class TaskSchedulingImpl implements TaskScheduling{
         repairmentRecord.setStartTime(startTime);
         repairmentRecord.setFinishTime(finishTime);
         repairmentRecord.setRepairContent(content);
-        repairmentRecordList.add(repairmentRecord);
+        this.repairmentRecordList.add(repairmentRecord);
 
         return repairmentRecord;
     }
