@@ -9,36 +9,45 @@ import java.time.LocalDateTime;
 class RepairmentRecordImplTest {
 
     @Test
-    void getStartTime() {
+    void startTimeTest() {
+        RepairmentRecord repairmentRecord = new RepairmentRecordImpl();
+        LocalDateTime startTime = LocalDateTime.of(2022, 12, 29, 10, 0, 0);
+        repairmentRecord.setStartTime(startTime);
+        LocalDateTime testTime = repairmentRecord.getStartTime();
+
+        assert testTime == startTime;
     }
 
     @Test
-    void setStartTime() {
+    void finishTimeTest() {
+        RepairmentRecord repairmentRecord = new RepairmentRecordImpl();
+        LocalDateTime finishTime = LocalDateTime.of(2022, 12, 29, 10, 0, 0);
+        repairmentRecord.setFinishTime(finishTime);
+        LocalDateTime testTime = repairmentRecord.getFinishTime();
+
+        assert testTime == finishTime;
     }
 
     @Test
-    void getFinishTime() {
+    void workingHoursTest() {
+        RepairmentRecord repairmentRecord = new RepairmentRecordImpl();
+        LocalDateTime finishTime = LocalDateTime.of(2022, 12, 29, 18, 30, 30);
+        LocalDateTime startTime = LocalDateTime.of(2022, 12, 29, 10, 20, 20);
+
+        repairmentRecord.setStartTime(startTime);
+        repairmentRecord.setFinishTime(finishTime);
+        long testTime = repairmentRecord.getWorkingHours();
+
+        assert testTime == 8;
     }
 
     @Test
-    void setFinishTime() {
-    }
+    void repairContentTest() {
+        RepairmentRecord repairmentRecord = new RepairmentRecordImpl();
+        String content = "老王家的水管爆了，已经维修完毕。";
+        repairmentRecord.setRepairContent(content);
+        String testContent = repairmentRecord.getRepairContent();
 
-    @Test
-    void getWorkingHours() {
-        long time;
-        LocalDateTime finish = LocalDateTime.now();
-        LocalDateTime start = LocalDateTime.of(2022, 12, 29, 10, 0, 0);
-        Duration duration = Duration.between(start, finish);
-        time = duration.toHours();
-        System.out.println(time);
-    }
-
-    @Test
-    void getRepairContent() {
-    }
-
-    @Test
-    void setRepairContent() {
+        assert testContent.equals(content);
     }
 }
