@@ -7,6 +7,7 @@ public class WorkerImpl implements Worker {
     List<FaultType> treatableFaultList;
     List<Repairment> repairmentList;
     String name;
+    boolean ifWorking = false;   //是否在工作的字段
     @Override
     public String getName() {
         return name;
@@ -15,6 +16,21 @@ public class WorkerImpl implements Worker {
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean getIfWorking() {
+        return this.ifWorking;
+    }
+
+    @Override
+    public void beginToWork() {
+        this.ifWorking = true;
+    }
+
+    @Override
+    public void completeWork() {
+        this.ifWorking = false;
     }
 
     @Override
