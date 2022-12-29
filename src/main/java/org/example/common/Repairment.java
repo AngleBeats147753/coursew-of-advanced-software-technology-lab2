@@ -20,6 +20,7 @@ public interface Repairment {
     Dispatcher getDispatcher();
     void setDispatcher(Dispatcher dispatcher);
     List<TaskScheduling> getTaskSchedulingList();
+    void setTaskScheduling(List<TaskScheduling> taskSchedulingList);
     Comment getComment();
     List<Complaint> getCompliantList();
     void setCompliantList(List<Complaint> compliantList);
@@ -27,7 +28,7 @@ public interface Repairment {
     TaskScheduling schedule(List<Worker> workers, List<FaultType> faults);
     Comment comment(String message, int score);
     Complaint complaint(String complaint);
-    void setWorkTime(RepairmentRecord repairmentRecord);
+    void setWorkTime();
     long getWorkTime();
     void complete();
 }

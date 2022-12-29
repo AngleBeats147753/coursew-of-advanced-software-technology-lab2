@@ -77,6 +77,11 @@ public class RepairmentImpl implements Repairment {
         return this.taskSchedulingList;
     }
 
+    @Override
+    public void setTaskScheduling(List<TaskScheduling> taskSchedulingList) {
+        this.taskSchedulingList = taskSchedulingList;
+    }
+
 
     @Override
     public Comment getComment() {
@@ -124,7 +129,7 @@ public class RepairmentImpl implements Repairment {
     }
 
     @Override
-    public void setWorkTime(RepairmentRecord repairmentRecord) {
+    public void setWorkTime() {
         this.workTime = 0;
         for(TaskScheduling taskScheduling : this.taskSchedulingList){
             List<RepairmentRecord> repairmentRecordList = taskScheduling.getRepairmentRecord();
