@@ -1,6 +1,5 @@
 package org.example.common;
 
-import org.example.common.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +14,6 @@ public class RepairmentImpl implements Repairment {
     public Comment comment;
     public List<Complaint> complaintList;
     private long workTime;
-    private Complaint complaint;
 
     @Override
     public LocalDate getRepairTime() {
@@ -98,21 +96,15 @@ public class RepairmentImpl implements Repairment {
     }
 
     @Override
-    public TaskScheduling schedule(List<Worker> workers, FaultType faults) {
+    public TaskScheduling schedule(List<Worker> workers, List<FaultType> faults) {
         TaskScheduling taskScheduling = new TaskSchedulingImpl();
-        FaultType[] values = faults.values();
-        for(FaultType fault:values){
-            for(Worker worker:workers){
-//                FaultType faultType = worker.getTreatableFaults();
-//                FaultType[] faultTypes = faultType.values();
-                List<FaultType> faultTypes = worker.getTreatableFaults();
-                for(FaultType fault1:faultTypes){
-                    if (fault.equals(fault1)){
-                        taskScheduling.setWorker(worker);
-                        break;
-                    }
-                }
+        for(Worker work : workers){
+            List<FaultType> cap = work.getTreatableFaults();
+            if(cap.containsAll(faults)){
+                taskScheduling.setWorker(work);
+                break;
             }
+
         }
         return taskScheduling;
     }
@@ -127,8 +119,9 @@ public class RepairmentImpl implements Repairment {
 
     @Override
     public Complaint complaint(String complaint) {
-        this.complaint.setComplaintContent(complaint);
-        return this.complaint;
+        Complaint complaintLog = new ComplaintImpl();
+        complaintLog.setComplaintContent(complaint);
+        return complaintLog;
     }
 
     @Override

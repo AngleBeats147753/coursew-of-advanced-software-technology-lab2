@@ -25,7 +25,7 @@ public interface Repairment {
     List<Complaint> getCompliantList();
     void setCompliantList(List<Complaint> compliantList);
 
-    TaskScheduling schedule(List<Worker> workers, FaultType faults);
+    TaskScheduling schedule(List<Worker> workers, List<FaultType> faults);
     Comment comment(String message, int score);
     Complaint complaint(String complaint);
     void setWorkTime(RepairmentRecord repairmentRecord);
