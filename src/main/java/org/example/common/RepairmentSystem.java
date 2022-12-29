@@ -17,7 +17,7 @@ public interface RepairmentSystem {
 
     Repairment applyRepairment(Person applicant, Dispatcher dispatcher, String content, String source);
     void showRepairments();
-    List<FaultType> getTreatableFaults();
+
     void getCurrentScheduling(Repairment repairment);
     boolean workerAvailable(Worker worker);
     void getWorkTime(Repairment repairment);
