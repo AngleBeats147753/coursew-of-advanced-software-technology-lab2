@@ -75,10 +75,6 @@ public class RepairmentImpl implements Repairment {
         return this.taskSchedulingList;
     }
 
-    @Override
-    public void setTaskSchedulingList(List<TaskScheduling> taskSchedulingList) {
-        this.taskSchedulingList = taskSchedulingList;
-    }
 
     @Override
     public Comment getComment() {
@@ -106,6 +102,7 @@ public class RepairmentImpl implements Repairment {
             }
 
         }
+        this.taskSchedulingList.add(taskScheduling);
         return taskScheduling;
     }
 

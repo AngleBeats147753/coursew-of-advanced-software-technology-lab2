@@ -20,7 +20,6 @@ public interface Repairment {
     Dispatcher getDispatcher();
     void setDispatcher(Dispatcher dispatcher);
     List<TaskScheduling> getTaskSchedulingList();
-    void setTaskSchedulingList(List<TaskScheduling> taskSchedulingList);
     Comment getComment();
     List<Complaint> getCompliantList();
     void setCompliantList(List<Complaint> compliantList);
