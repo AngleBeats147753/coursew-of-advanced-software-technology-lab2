@@ -62,6 +62,7 @@ class MainTest {
 
         //调度员将报修信息录入报修系统
         Repairment curRepairment = repairmentSystem.applyRepairment(owner, dispatcher, faultType, source);
+        assert faultType.equals(curRepairment.getFaultContent()) : "当前报修录入异常";
 
         //调度员开始进行任务调度，将任务分配给合适的维修工人
         System.out.println("调度员开始进行任务调度...");
@@ -73,6 +74,7 @@ class MainTest {
         Worker worker = taskScheduling.getWorker();
         System.out.printf("调度员调度完成，被调度的工人：%s ,工人开始工作...\n", worker.getName());
         worker.beginToWork();
+        assert worker.getIfWorking() : "被调度的工人未开始工作";
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime finishTime = startTime.plus(1, TimeUnit.HOURS.toChronoUnit());
         taskScheduling.repair(startTime, finishTime, curRepairment.getFaultContent());
@@ -86,8 +88,9 @@ class MainTest {
         System.out.println("查看当前报修情况：");
         repairmentSystem.getCurrentScheduling(curRepairment);
         curRepairment.complete();
+        assert taskScheduling.getIfComplete() : "当前调度并未完成";
         System.out.printf("本次报修工作时间：%d 小时 \n", curRepairment.getWorkTime());
-
+        assert curRepairment.getIfComplete() : "当前报修并未完成";
 
         System.out.println("请用户对本次维修进行评价：");
         Comment comment = curRepairment.comment("响应非常及时", 4);
