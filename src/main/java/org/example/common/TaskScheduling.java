@@ -1,6 +1,6 @@
 package org.example.common;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -13,6 +13,6 @@ public interface TaskScheduling {
     List<RepairmentRecord> getRepairmentRecord();
     boolean getIfComplete();
 
-    RepairmentRecord repair(LocalDate startTime, LocalDate finishTime, String content);
+    RepairmentRecord repair(LocalDateTime startTime, LocalDateTime finishTime, String content);
     void complete();
 }

@@ -1,6 +1,6 @@
 package org.example.common;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class TaskSchedulingImpl implements TaskScheduling{
@@ -29,8 +29,14 @@ public class TaskSchedulingImpl implements TaskScheduling{
     }
 
     @Override
-    public RepairmentRecord repair(LocalDate startTime, LocalDate finishTime, String content) {
-        return null;
+    public RepairmentRecord repair(LocalDateTime startTime, LocalDateTime finishTime, String content) {
+        RepairmentRecord repairmentRecord = new RepairmentRecordImpl();
+        repairmentRecord.setStartTime(startTime);
+        repairmentRecord.setFinishTime(finishTime);
+        repairmentRecord.setRepairContent(content);
+        repairmentRecordList.add(repairmentRecord);
+
+        return repairmentRecord;
     }
 
     @Override

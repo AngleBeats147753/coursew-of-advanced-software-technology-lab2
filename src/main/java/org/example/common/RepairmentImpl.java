@@ -1,27 +1,29 @@
 package org.example.common;
 
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RepairmentImpl implements Repairment {
-    public LocalDate repairTime;
+    public LocalDateTime repairTime;
     public String faultContent;
     public Person applicant;
     public String source;
     public Dispatcher dispatcher;
-    public List<TaskScheduling> taskSchedulingList;
+    public List<TaskScheduling> taskSchedulingList = new ArrayList<>();
     public Comment comment;
     public List<Complaint> complaintList;
     private long workTime;
+    private boolean complete = false;
 
     @Override
-    public LocalDate getRepairTime() {
+    public LocalDateTime getRepairTime() {
         return this.repairTime;
     }
 
     @Override
-    public void setRepairTime(LocalDate repairTime) {
+    public void setRepairTime(LocalDateTime repairTime) {
         this.repairTime = repairTime;
     }
 
@@ -56,8 +58,8 @@ public class RepairmentImpl implements Repairment {
     }
 
     @Override
-    public boolean getIfComplete(TaskScheduling taskScheduling) {
-        return taskScheduling.getIfComplete();
+    public boolean getIfComplete() {
+        return this.complete;
     }
 
     @Override
@@ -76,9 +78,10 @@ public class RepairmentImpl implements Repairment {
     }
 
     @Override
-    public void setTaskSchedulingList(List<TaskScheduling> taskSchedulingList) {
+    public void setTaskScheduling(List<TaskScheduling> taskSchedulingList) {
         this.taskSchedulingList = taskSchedulingList;
     }
+
 
     @Override
     public Comment getComment() {
@@ -106,6 +109,7 @@ public class RepairmentImpl implements Repairment {
             }
 
         }
+        this.taskSchedulingList.add(taskScheduling);
         return taskScheduling;
     }
 
@@ -125,8 +129,14 @@ public class RepairmentImpl implements Repairment {
     }
 
     @Override
-    public void setWorkTime(RepairmentRecord repairmentRecord) {
-        this.workTime = this.workTime + repairmentRecord.getWorkingHours();
+    public void setWorkTime() {
+        this.workTime = 0;
+        for(TaskScheduling taskScheduling : this.taskSchedulingList){
+            List<RepairmentRecord> repairmentRecordList = taskScheduling.getRepairmentRecord();
+            for(RepairmentRecord repairment : repairmentRecordList){
+                workTime = workTime + repairment.getWorkingHours();
+            }
+        }
     }
 
     @Override
@@ -136,6 +146,7 @@ public class RepairmentImpl implements Repairment {
 
     @Override
     public void complete() {
+        this.complete = true;
         System.out.print("本次报修结束！");
     }
 }

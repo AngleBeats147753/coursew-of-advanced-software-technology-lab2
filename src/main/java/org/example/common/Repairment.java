@@ -1,6 +1,6 @@
 package org.example.common;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -8,19 +8,19 @@ import java.util.List;
  * @since 2022/12/16
  **/
 public interface Repairment {
-    LocalDate getRepairTime();
-    void setRepairTime(LocalDate repairTime);
+    LocalDateTime getRepairTime();
+    void setRepairTime(LocalDateTime repairTime);
     String getFaultContent();
     void setFaultContent(String faultContent);
     Person getApplicant();
     void setApplicant(Person applicant);
     String getSource();
     void setSource(String source);
-    boolean getIfComplete(TaskScheduling taskScheduling);
+    boolean getIfComplete();
     Dispatcher getDispatcher();
     void setDispatcher(Dispatcher dispatcher);
     List<TaskScheduling> getTaskSchedulingList();
-    void setTaskSchedulingList(List<TaskScheduling> taskSchedulingList);
+    void setTaskScheduling(List<TaskScheduling> taskSchedulingList);
     Comment getComment();
     List<Complaint> getCompliantList();
     void setCompliantList(List<Complaint> compliantList);
@@ -28,7 +28,7 @@ public interface Repairment {
     TaskScheduling schedule(List<Worker> workers, List<FaultType> faults);
     Comment comment(String message, int score);
     Complaint complaint(String complaint);
-    void setWorkTime(RepairmentRecord repairmentRecord);
+    void setWorkTime();
     long getWorkTime();
     void complete();
 }
