@@ -82,7 +82,7 @@ public class RepairmentSystemImpl implements RepairmentSystem {
         } else {
             int size = repairment.getTaskSchedulingList().size();
             TaskScheduling scheduling = repairment.getTaskSchedulingList().get(size-1);
-            System.out.printf("维修人员：%s", scheduling.getWorker());
+            System.out.printf("维修人员：%s", scheduling.getWorker().getName());
             for (RepairmentRecord record: scheduling.getRepairmentRecord()){
                 System.out.print("开始时间：" + record.getStartTime() + "    ");
                 String endTime;
