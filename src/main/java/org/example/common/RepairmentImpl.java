@@ -134,7 +134,7 @@ public class RepairmentImpl implements Repairment {
         for(TaskScheduling taskScheduling : this.taskSchedulingList){
             List<RepairmentRecord> repairmentRecordList = taskScheduling.getRepairmentRecord();
             for(RepairmentRecord repairment : repairmentRecordList){
-                workTime = workTime + repairment.getWorkingHours();
+                this.workTime = this.workTime + repairment.getWorkingHours();
             }
         }
     }
