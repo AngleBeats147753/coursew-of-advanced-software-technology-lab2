@@ -42,6 +42,11 @@ class RepairmentSystemImplTest {
     Worker createAWorker(int difference){
         Worker worker = new WorkerImpl();
         worker.setName("维修工"+difference);
+        List<FaultType> faults = new ArrayList<>();
+        faults.add(FaultType.A);
+        faults.add(FaultType.C);
+        faults.add(FaultType.E);
+        worker.setTreatableFaults(faults);
         return worker;
     }
 
@@ -65,7 +70,11 @@ class RepairmentSystemImplTest {
         repairment.setApplicant(owner);
         repairment.setFaultContent("修水管");
         List<TaskScheduling> taskSchedulingList = new ArrayList<TaskScheduling>();
+        TaskScheduling taskScheduling1 = createATaskScheduling(worker);
+        taskScheduling1.complete();
+        taskSchedulingList.add(taskScheduling1);
         taskSchedulingList.add(createATaskScheduling(worker));
+        repairment.setTaskScheduling(taskSchedulingList);
         repairment.setWorkTime();
         repairment.setRepairTime(LocalDateTime.now());
         repairment.setSource("小区");
@@ -91,67 +100,107 @@ class RepairmentSystemImplTest {
     }
 
     @Test
-    void showRepairments(RepairmentSystem repairmentSystem) {
-//        for(Repairment repairment : repairmentList){
-//            System.out.printf("报修人：%s\n", repairment.getApplicant().getName());
-//            System.out.printf("调度员：%s\n", repairment.getDispatcher().getName());
-//            System.out.printf("维修内容：%s\n", repairment.getFaultContent());
-//            System.out.printf("来源：%s\n", repairment.getSource());
-//            System.out.printf("报修时间：%s\n", repairment.getRepairTime());
-//            System.out.println("*************************");
-//        }
+    void showRepairmentTest() {
+        Worker worker1 = createAWorker(1);
+        Dispatcher dispatcher1 = createADispatcher(1);
+        Owner owner1 = createAnOwner(1);
+        Repairment repairment = createRepairment(dispatcher1, owner1, worker1);
+
+        RepairmentSystem system = createSysytem();
+        List<TaskScheduling> systemRes = system.showRepairment(repairment);
+        assert systemRes.equals(repairment.getTaskSchedulingList());
     }
 
     @Test
-    void getWorkerInfo(Worker worker){
-        System.out.printf("工人姓名： %s", worker.getName());
-        System.out.print("可处理的维修类型：");
-        for (FaultType faultType: worker.getTreatableFaults()){
-            System.out.print(faultType + ", ");
-        }
-        System.out.println();
-        if (worker.getIfWorking())
-            System.out.println("工作ing...");
-        else
-            System.out.println("目前未被分配工作");
+    void getWorkerInfoTest(){
+        Worker testWorker = createAWorker(111);
+        Dispatcher dispatcher1 = createADispatcher(1);
+        Dispatcher dispatcher2 = createADispatcher(2);
+        Owner owner1 = createAnOwner(1);
+        Owner owner2 = createAnOwner(2);
+        RepairmentSystem system = createSysytem();
+        system.getWorkerList().add(testWorker);
+
+        //创建repairment和调度
+        List<TaskScheduling> taskSchedulingList = new ArrayList<>();
+        Repairment repairment1 = createRepairment(dispatcher1, owner1, testWorker);
+        Repairment repairment2 = createRepairment(dispatcher2, owner1, testWorker);
+        List<TaskScheduling> taskSchedulings1 = new ArrayList<>();
+        List<TaskScheduling> taskSchedulings2 = new ArrayList<>();
+        TaskScheduling taskScheduling1 = new TaskSchedulingImpl();
+        TaskScheduling taskScheduling2 = new TaskSchedulingImpl();
+        taskScheduling1.setWorker(testWorker);
+        taskScheduling2.setWorker(testWorker);
+        taskSchedulings1.add(taskScheduling1);
+        taskSchedulings2.add(taskScheduling2);
+        repairment1.setTaskScheduling(taskSchedulings1);
+        repairment2.setTaskScheduling(taskSchedulings2);
+        //创建投诉
+        List<Complaint> complaintList = new ArrayList<>();
+        List<Complaint> complaints = new ArrayList<>();
+        Complaint complaint = new ComplaintImpl();
+        complaint.setComplaintContent("服务态度不好");
+        complaint.setProcessingResults(false);
+        List<ComplaintDescription> descriptionList = new ArrayList<>();
+        ComplaintDescription description = new ComplaintDescriptionImpl();
+        description.setDescription("维修工态度不好");
+        description.setPerson(testWorker);
+        descriptionList.add(description);
+        complaint.setComplaintDescription(descriptionList);
+        complaints.add(complaint);
+        repairment1.setCompliantList(complaints);
+        system.getRepairmentList().add(repairment1);
+        system.getRepairmentList().add(repairment2);
+
+        taskSchedulingList.add(taskScheduling1);
+        taskSchedulingList.add(taskScheduling2);
+        complaintList.add(complaint);
+        WorkerInfo trueRes = new WorkerInfo(taskSchedulingList, complaintList);
+        WorkerInfo systemRes = system.getWorkerInfo(testWorker);
+
+        assert systemRes.equals(trueRes);
     }
 
     @Test
-    void getCurrentScheduling(Repairment repairment) {
-        System.out.printf("报修人：%s\n", repairment.getApplicant().getName());
-        System.out.printf("维修内容：%s\n", repairment.getFaultContent());
-        if(repairment.getTaskSchedulingList() == null){
-            System.out.println("未调度");
-        } else {
-            int size = repairment.getTaskSchedulingList().size();
-            TaskScheduling scheduling = repairment.getTaskSchedulingList().get(size-1);
-            System.out.printf("维修人员：%s", scheduling.getWorker());
-            for (RepairmentRecord record: scheduling.getRepairmentRecord()){
-                System.out.print("开始时间：" + record.getStartTime() + "    ");
-                String endTime;
-                if (record.getFinishTime() != null)
-                    endTime = record.getFinishTime().toString();
-                else
-                    endTime = "未结束";
-                System.out.print("结束时间：" + endTime + "    ");
-                System.out.println("维修内容：" + record.getRepairContent());
+    void getCurrentSchedulingTest() {
+        Worker worker1 = createAWorker(1);
+        Dispatcher dispatcher1 = createADispatcher(1);
+        Owner owner1 = createAnOwner(1);
+        Repairment repairment = createRepairment(dispatcher1, owner1, worker1);
+        List<TaskScheduling> list = repairment.getTaskSchedulingList();
+        TaskScheduling trueRes = list.get(list.size()-1);
+
+        RepairmentSystem system = createSysytem();
+        TaskScheduling systemRes = system.getCurrentScheduling(repairment);
+        assert systemRes.equals(trueRes);
+    }
+
+    @Test
+    void workerAvailableTest(){
+        Worker worker1 = createAWorker(1);
+        RepairmentSystem system = createSysytem();
+
+        boolean systemRes = system.workerAvailable(worker1);
+        assert  systemRes == worker1.getIfWorking();
+    }
+
+
+    @Test
+    void getWorkTimeTest(){
+        Worker worker1 = createAWorker(1);
+        Dispatcher dispatcher1 = createADispatcher(1);
+        Owner owner1 = createAnOwner(1);
+        Repairment repairment = createRepairment(dispatcher1, owner1, worker1);
+        RepairmentSystem system = createSysytem();
+        system.showRepairment(repairment);
+        long SystemWorkHours = system.getWorkTime(repairment);
+
+        long trueWorkHours = 0;
+        for (TaskScheduling taskScheduling: repairment.getTaskSchedulingList()){
+            for (RepairmentRecord record: taskScheduling.getRepairmentRecord()){
+                trueWorkHours+=record.getWorkingHours();
             }
-            if (scheduling.getIfComplete())
-                System.out.println("已完成");
-            else
-                System.out.println("未完成");
         }
-    }
-
-    @Test
-    boolean workerAvailable(Worker worker){
-        return worker.getIfWorking();
-    }
-
-
-    @Test
-    void getWorkTime(Repairment repairment){
-
-        System.out.println("维修时间：" + repairment.getRepairTime());
+        assert trueWorkHours == SystemWorkHours;
     }
 }
