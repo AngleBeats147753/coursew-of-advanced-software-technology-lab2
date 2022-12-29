@@ -22,7 +22,7 @@ class RepairmentImplTest {
     LocalDateTime localDateTime4 = LocalDateTime.of(2022, 12, 29, 22, 16);
 
     @Test
-    void schedule() {
+    void scheduleTest() {
         faultType1.add(faultTypeA);
         faultType1.add(faultTypeB);
         worker1.setTreatableFaults(faultType1);
@@ -53,7 +53,7 @@ class RepairmentImplTest {
     }
 
     @Test
-    void comment() {
+    void commentTest() {
         String message = "响应及时";
         int score = 5;
         Repairment repairment = new RepairmentImpl();
@@ -65,7 +65,7 @@ class RepairmentImplTest {
     }
 
     @Test
-    void complaint() {
+    void complaintTest() {
         String message = "维修太慢了";
         Repairment repairment = new RepairmentImpl();
         Complaint complaint = repairment.complaint(message);
@@ -75,7 +75,7 @@ class RepairmentImplTest {
     }
 
     @Test
-    void setWorkTime() {
+    void setWorkTimeTest() {
         Repairment repairment = new RepairmentImpl();
         List<TaskScheduling> taskSchedulingList = repairment.getTaskSchedulingList();
         TaskScheduling taskScheduling1 = new TaskSchedulingImpl();
@@ -92,6 +92,5 @@ class RepairmentImplTest {
         long workTime = repairment.getWorkTime();
         assert workTime == 15 : "test failed";
     }
-
 
 }
