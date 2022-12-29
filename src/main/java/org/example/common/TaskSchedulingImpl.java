@@ -1,11 +1,12 @@
 package org.example.common;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskSchedulingImpl implements TaskScheduling{
     Worker worker;
-    List<RepairmentRecord> repairmentRecordList;
+    List<RepairmentRecord> repairmentRecordList = new ArrayList<>();
     boolean ifComplete = false;
 
     @Override
