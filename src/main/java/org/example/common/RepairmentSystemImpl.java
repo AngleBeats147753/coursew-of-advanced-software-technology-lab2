@@ -9,7 +9,7 @@ public class RepairmentSystemImpl implements RepairmentSystem {
     private List<Repairment> repairmentList;
     private List<Worker> workerList;
 
-    public RepairmentSystemImpl(ArrayList<Repairment> repairmentList, ArrayList<Worker> workerList) {
+    public RepairmentSystemImpl(List<Repairment> repairmentList, List<Worker> workerList) {
         this.repairmentList = repairmentList;
         this.workerList = workerList;
     }
