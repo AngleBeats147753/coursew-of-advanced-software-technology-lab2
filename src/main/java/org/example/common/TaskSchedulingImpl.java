@@ -4,14 +4,16 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class TaskSchedulingImpl implements TaskScheduling{
+    private Worker worker;
+
     @Override
     public Worker getWorker() {
-        return null;
+        return this.worker;
     }
 
     @Override
     public void setWorker(Worker worker) {
-
+        this.worker = worker;
     }
 
     @Override
