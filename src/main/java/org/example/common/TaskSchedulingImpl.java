@@ -4,29 +4,28 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class TaskSchedulingImpl implements TaskScheduling{
+    Worker worker;
+    List<RepairmentRecord> repairmentRecordList;
+    boolean ifComplete = false;
+
     @Override
     public Worker getWorker() {
-        return null;
+        return worker;
     }
 
     @Override
     public void setWorker(Worker worker) {
-
+        this.worker = worker;
     }
 
     @Override
     public List<RepairmentRecord> getRepairmentRecord() {
-        return null;
-    }
-
-    @Override
-    public void setRepairmentRecord(List<RepairmentRecord> repairmentRecordList) {
-
+        return repairmentRecordList;
     }
 
     @Override
     public boolean getIfComplete() {
-        return false;
+        return ifComplete;
     }
 
     @Override
@@ -36,6 +35,6 @@ public class TaskSchedulingImpl implements TaskScheduling{
 
     @Override
     public void complete() {
-
+        this.ifComplete = true;
     }
 }
