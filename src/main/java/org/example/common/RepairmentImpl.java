@@ -15,6 +15,7 @@ public class RepairmentImpl implements Repairment {
     public Comment comment;
     public List<Complaint> complaintList;
     private long workTime;
+    private boolean complete = false;
 
     @Override
     public LocalDateTime getRepairTime() {
@@ -57,8 +58,8 @@ public class RepairmentImpl implements Repairment {
     }
 
     @Override
-    public boolean getIfComplete(TaskScheduling taskScheduling) {
-        return taskScheduling.getIfComplete();
+    public boolean getIfComplete() {
+        return this.complete;
     }
 
     @Override
@@ -124,7 +125,13 @@ public class RepairmentImpl implements Repairment {
 
     @Override
     public void setWorkTime(RepairmentRecord repairmentRecord) {
-        this.workTime = this.workTime + repairmentRecord.getWorkingHours();
+        this.workTime = 0;
+        for(TaskScheduling taskScheduling : this.taskSchedulingList){
+            List<RepairmentRecord> repairmentRecordList = taskScheduling.getRepairmentRecord();
+            for(RepairmentRecord repairment : repairmentRecordList){
+                workTime = workTime + repairment.getWorkingHours();
+            }
+        }
     }
 
     @Override
@@ -134,6 +141,7 @@ public class RepairmentImpl implements Repairment {
 
     @Override
     public void complete() {
+        this.complete = true;
         System.out.print("本次报修结束！");
     }
 }

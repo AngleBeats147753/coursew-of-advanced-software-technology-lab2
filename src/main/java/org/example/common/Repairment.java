@@ -16,7 +16,7 @@ public interface Repairment {
     void setApplicant(Person applicant);
     String getSource();
     void setSource(String source);
-    boolean getIfComplete(TaskScheduling taskScheduling);
+    boolean getIfComplete();
     Dispatcher getDispatcher();
     void setDispatcher(Dispatcher dispatcher);
     List<TaskScheduling> getTaskSchedulingList();
