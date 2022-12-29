@@ -5,6 +5,16 @@ import java.util.List;
 
 public class DispatcherImpl implements Dispatcher{
     List<Complaint> complaintList;
+    String name;
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public List<Complaint> getComplaintList() {

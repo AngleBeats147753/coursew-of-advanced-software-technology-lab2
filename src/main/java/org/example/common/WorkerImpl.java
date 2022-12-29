@@ -6,6 +6,16 @@ public class WorkerImpl implements Worker {
     List<Complaint> complaintList;
     List<FaultType> treatableFaultList;
     List<Repairment> repairmentList;
+    String name;
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public List<FaultType> getTreatableFaults() {
